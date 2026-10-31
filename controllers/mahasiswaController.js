@@ -27,10 +27,9 @@ exports.getAll = async (req, res) => {
   if (req.query.kota) {
     filter['alamat.kota'] = String(req.query.kota);
   }
-  if (req.query.prodi) {
-    const prodi = await Prodi.findOne({ kode: String(req.query.prodi).toUpperCase() });
-    filter.prodiId = prodi ? prodi._id : { $in: [] };
-  }
+  const data = await Mahasiswa.find(filter).populate('prodiId');
+  res.json(data);
+};
 
   const page = angkaAman(req.query.page, 1, 1, Number.MAX_SAFE_INTEGER);
   const limit = angkaAman(req.query.limit, LIMIT_DEFAULT, 1, LIMIT_MAKS);
