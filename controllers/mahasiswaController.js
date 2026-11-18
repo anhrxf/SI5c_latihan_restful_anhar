@@ -50,7 +50,6 @@ exports.getAll = async (req, res) => {
   ]);
 
   res.json({ data, page, limit, total, totalPages: Math.ceil(total / limit) });
-};
 
 exports.getById = async (req, res) => {
   const data = await Mahasiswa.findById(req.params.id).populate('prodiId');
